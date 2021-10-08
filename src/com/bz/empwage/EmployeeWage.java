@@ -1,17 +1,26 @@
 package com.bz.empwage;
 
+import java.util.Random;
+
 public class EmployeeWage {
 
 	public static void main(String[] args) {
-		System.out.println("Welcome to employee wage program");
+		System.out.println("welcome to emloyee wage computation program");
+		int IS_PART_TIME = 1;
+		int IS_FULL_TIME = 2;
+		int EMP_RATE_PER_HOUR = 20;
 
-		int is_present = 1;
-		int emp_check = (int) (Math.floor(Math.random() * 10)) % 2;
-		if (emp_check == is_present) {
-			System.out.println("Employee is present");
-		} else
-			System.out.println("Employee is absent");
-
+		int empHrs = 0;
+		int empWage = 0;
+		Random random = new Random();
+		int empCheck = random.nextInt(3);
+		if (empCheck == IS_PART_TIME)
+			empHrs = 4;
+		else if (empCheck == IS_FULL_TIME)
+			empHrs = 8;
+		// else
+		// empHrs = 0;
+		empWage = empHrs * EMP_RATE_PER_HOUR;
+		System.out.println("Emp Wage: " + empWage);
 	}
-
 }
