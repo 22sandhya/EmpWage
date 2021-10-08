@@ -15,12 +15,12 @@ public class EmployeeWage {
 		Random random = new Random();
 		int empCheck = random.nextInt(3);
 		if (empCheck == IS_PART_TIME)
-			empHrs = 4;
-		else if (empCheck == IS_FULL_TIME)
 			empHrs = 8;
-		// else
-		// empHrs = 0;
+		else if (empCheck == IS_FULL_TIME)
+			empHrs = 12;
+
 		empWage = empHrs * EMP_RATE_PER_HOUR;
 		System.out.println("Emp Wage: " + empWage);
+
 	}
 }
