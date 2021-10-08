@@ -3,46 +3,57 @@ package com.bz.empwage;
 import java.util.Random;
 
 public class EmployeeWage {
-	public static final int EMP_RATE_PER_HOUR = 20;
-	public static final int IS_FULL_TIME = 1;
-	public static final int IS_PART_TIME = 2;
-	public static int MAX_WORKING_DAYS = 20;
-	public static final int MAX_WORKING_HRS = 100;
+	public static final int IS_PART_TIME = 1;
+	public static final int IS_FULL_TIME = 2;
+
+	private final String company;
+	private final int empRatePerHr;
+	private final int numOfWorkingDays;
+	private final int maxHoursPerMonth;
+	private int totalEmpWage;
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to the Employee Wage Computation Program !!");
-		EmployeeWage company1 = new EmployeeWage();
-		EmployeeWageComp("Dmart", 20, 20, 100);
-		EmployeeWage company2 = new EmployeeWage();
-		EmployeeWageComp("Kmart", 22, 20, 70);
-		EmployeeWage company3 = new EmployeeWage();
-		EmployeeWageComp("Bridgelabz", 15, 2, 20);
+		EmployeeWage kMart = new EmployeeWage("K'mart", 20, 20, 100);
+		EmployeeWage bridgelabz = new EmployeeWage("Bridgelabz", 10, 20, 110);
+		EmployeeWage JIO = new EmployeeWage("JIO", 15, 20, 80);
+		kMart.computeEmpWage();
+		System.out.println(kMart);
+		bridgelabz.computeEmpWage();
+		System.out.println(bridgelabz);
+		JIO.computeEmpWage();
+		System.out.println(JIO);
 	}
 
-	public static int EmployeeWageComp(String company, int empRatePerHr, int numWorkingDays, int maxHrs) {
-		int empHrs = 0, totalEmpHrs = 8, totalWorkingDays = 0;
-		while (totalEmpHrs <= MAX_WORKING_HRS && totalWorkingDays < MAX_WORKING_DAYS) {
+	public EmployeeWage(String company, int empRatePerHr, int numOfWorkingDays, int maxHoursPerMonth) {
+		this.company = company;
+		this.empRatePerHr = empRatePerHr;
+		this.numOfWorkingDays = numOfWorkingDays;
+		this.maxHoursPerMonth = maxHoursPerMonth;
+	}
+
+	public void computeEmpWage() {
+		int empHrs = 0, totalEmpHrs = 0, totalWorkingDays = 0;
+		while (totalEmpHrs < maxHoursPerMonth && totalWorkingDays < numOfWorkingDays) {
 			totalWorkingDays++;
-			int empcheck = (int) (Math.floor(Math.random() * 10) % 3);
-			switch (empcheck) {
-			case 2:
-				System.out.println("Employee is Part time ");
+			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+			switch (empCheck) {
+			case IS_PART_TIME:
 				empHrs = 4;
 				break;
-			case 1:
-				System.out.println("Employee is Full time ");
+			case IS_FULL_TIME:
 				empHrs = 8;
 				break;
 			default:
-				System.out.println("Employee is Absent");
 				empHrs = 0;
 			}
 			totalEmpHrs += empHrs;
+			System.out.println("Day-:" + totalWorkingDays + " Employee Hr:" + empHrs);
 		}
-		int totalEmpWage = totalEmpHrs * EMP_RATE_PER_HOUR;
-		System.out.println(company + " company Total Daily Wage for days " + totalWorkingDays + " and hours "
-				+ totalEmpHrs + " is: " + totalEmpWage);
+		totalEmpWage = totalEmpHrs * empRatePerHr;
+	}
 
-		return totalEmpWage;
+	public String toString() {
+		return ("Total employee  Wage for the " + company + " is: " + totalEmpWage);
 	}
 }
